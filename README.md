@@ -1,33 +1,17 @@
-# Soyle: AI Kazakh Language Trainer
+# Soyle (Сөйле)
 
-**Soyle** (Сөйле) is a machine learning-powered educational tool designed to help users achieve native-level speech practice and fluency in the Kazakh language.
+Soyle is a machine learning project I put together to help people practice speaking Kazakh. The goal was to create an AI trainer that can listen to speech and give feedback to help users reach a native level of fluency.
 
-## Features
-- **Custom ML Model:** Built and trained specifically for NLP tasks in the Kazakh language (`kazakh_model.pkl`).
-- **Interactive Training:** Provides real-time speech and text analysis for immersive learning.
-- **RESTful Backend:** Python-based API to handle predictions and training routines.
+At the core of the project is a custom machine learning model trained specifically for Kazakh language processing. 
 
-## Tech Stack
-- **Machine Learning:** Scikit-Learn / TensorFlow, Python
-- **Backend API:** Python (Flask/FastAPI)
-- **Frontend:** HTML5, CSS3, JavaScript
+## What it does
+- Analyzes speech and text input in real-time.
+- Uses a custom trained model (stored in kazakh_model.pkl).
+- Serves predictions through a Python backend API.
 
-## Running Locally
+## How to use it
+1. Install the required Python packages from requirements.txt.
+2. Run server.py to start the backend.
+3. Open the frontend files in your browser to interact with the API.
 
-1. **Install Dependencies:**
-   Ensure you have Python 3.8+ installed.
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-2. **Run the Backend Server:**
-   ```bash
-   python server.py
-   # or node server.js (if using the Node wrapper)
-   ```
-
-3. **Train the Model (Optional):**
-   If you want to retrain the model on new data:
-   ```bash
-   python train.py
-   ```
+If you want to train the model on new data, you can check out the train.py script.
