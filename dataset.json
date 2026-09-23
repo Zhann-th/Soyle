@@ -1,0 +1,25 @@
+[
+    {"text": "Сәлем", "intent": "greetings"},
+    {"text": "Сәлеметсіз бе", "intent": "greetings"},
+    {"text": "Қайырлы таң", "intent": "greetings"},
+    {"text": "Қайырлы күн", "intent": "greetings"},
+    {"text": "Қалайсың?", "intent": "greetings"},
+    
+    {"text": "Рақмет", "intent": "thanks"},
+    {"text": "Көп рақмет", "intent": "thanks"},
+    {"text": "Алғысым шексіз", "intent": "thanks"},
+    
+    {"text": "Сау бол", "intent": "goodbye"},
+    {"text": "Кездескенше", "intent": "goodbye"},
+    {"text": "Қош бол", "intent": "goodbye"},
+    
+    {"text": "Ауа райы қандай?", "intent": "weather"},
+    {"text": "Далада жаңбыр ма?", "intent": "weather"},
+    {"text": "Бүгін күн ыстық", "intent": "weather"},
+    
+    {"text": "Сағат қанша болды?", "intent": "time"},
+    {"text": "Қазір уақыт қанша?", "intent": "time"},
+    
+    {"text": "Сенің атың кім?", "intent": "bot_name"},
+    {"text": "Сен кімсің?", "intent": "bot_name"}
+]

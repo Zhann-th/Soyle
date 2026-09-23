@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QazAI — Казахский Голосовой ИИ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.14.0/dist/tf.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+
+<div class="app">
+
+    
+    <header class="header">
+        <div class="logo">
+            <div class="logo-icon"><span class="material-symbols-rounded">neurology</span></div>
+            <div>
+                <h1>QazAI</h1>
+                <p>Казахский голосовой ИИ</p>
+            </div>
+        </div>
+        <div id="globalStatus" class="global-status">
+            <span class="dot" id="gDot"></span>
+            <span id="gText">Дайын</span>
+        </div>
+    </header>
+
+    
+    <div class="steps-row">
+        <div class="step active" id="step1">
+            <div class="step-circle">1</div>
+            <span>Үйрену</span>
+        </div>
+        <div class="step-line"></div>
+        <div class="step" id="step2">
+            <div class="step-circle">2</div>
+            <span>Оқыту</span>
+        </div>
+        <div class="step-line"></div>
+        <div class="step" id="step3">
+            <div class="step-circle">3</div>
+            <span>Тану</span>
+        </div>
+    </div>
+
+    
+    <div class="phase-tabs">
+        <button class="phase-tab" onclick="showPhase('phaseRecord'); markStep(1)">
+            <span class="material-symbols-rounded">school</span> Үйрену
+        </button>
+        <button class="phase-tab" onclick="showPhase('phaseTrain')">
+            <span class="material-symbols-rounded">model_training</span> Оқыту
+        </button>
+        <button class="phase-tab" onclick="showPhase('phaseTest')">
+            <span class="material-symbols-rounded">graphic_eq</span> Тану
+        </button>
+        <button class="phase-tab db-tab" onclick="openDatabase()">
+            <span class="material-symbols-rounded">database</span> База
+        </button>
+    </div>
+
+    
+    <div id="phaseRecord" class="phase active">
+        <div class="progress-row">
+            <div class="prog-info">
+                <span>Үлгілер</span>
+                <strong id="progFraction">0 / 0</strong>
+            </div>
+            <div class="prog-track">
+                <div class="prog-fill" id="progFill" style="width:0%"></div>
+            </div>
+        </div>
+        <div class="word-stage" id="wordStage"></div>
+        <div class="mic-zone">
+            <div class="mic-outer">
+                <div class="mic-wave" id="micWave"></div>
+                <button class="mic-center" id="micBtn" onclick="onMicClick()">
+                    <span class="material-symbols-rounded" id="micIcon">mic</span>
+                </button>
+            </div>
+            <p class="mic-hint" id="micHint">Жазуды бастау үшін басыңыз</p>
+        </div>
+        <div class="samples-strip" id="samplesStrip"></div>
+        <div class="nav-row">
+            <button class="nav-btn" onclick="navigate(-1)">
+                <span class="material-symbols-rounded">arrow_back</span>
+            </button>
+            <button class="nav-btn nav-btn-train" id="trainBtn" onclick="goToTrain()" disabled>
+                <span class="material-symbols-rounded">model_training</span>
+                Нейросетіні оқыту
+            </button>
+            <button class="nav-btn" onclick="navigate(1)">
+                <span class="material-symbols-rounded">arrow_forward</span>
+            </button>
+        </div>
+    </div>
+
+    
+    <div id="phaseTrain" class="phase">
+        <div class="train-screen">
+            <div class="train-brain">
+                <span class="material-symbols-rounded spin-icon" id="brainIcon">neurology</span>
+            </div>
+            <h2 id="trainTitle">Нейросеть оқытылып жатыр...</h2>
+            <p id="trainSubtitle">ИИ сіздің дауысыңызды танып үйренуде</p>
+            <div class="train-prog-wrap">
+                <div class="train-prog-fill" id="trainProgFill" style="width:0%"></div>
+            </div>
+            <p class="train-pct" id="trainPct">0%</p>
+            <div class="epoch-log" id="epochLog"></div>
+        </div>
+    </div>
+
+    
+    <div id="phaseTest" class="phase">
+        <div class="test-card">
+            <div class="pred-display" id="predDisplay">
+                <div class="pred-wave-ring" id="predWaveRing">
+                    <div class="pred-wave-ring-inner"></div>
+                </div>
+                <button class="pred-mic-btn" id="predMicBtn" onclick="toggleListen()">
+                    <span class="material-symbols-rounded" id="predMicIcon">mic</span>
+                </button>
+                <div class="pred-result-word" id="predWord">—</div>
+                <div class="pred-result-conf" id="predConf">Микрофонды басыңыз</div>
+            </div>
+            <div class="conf-bars" id="confBars"></div>
+            <button class="retrain-btn" onclick="restart()">
+                <span class="material-symbols-rounded">refresh</span>
+                Қайтадан бастау
+            </button>
+        </div>
+    </div>
+
+    
+    <div id="phaseDB" class="phase">
+        <div class="db-header-row">
+            <div class="db-title">
+                <span class="material-symbols-rounded">database</span>
+                <div>
+                    <h2>Дауыс базасы</h2>
+                    <p id="dbSubtitle">Барлық жазбалар</p>
+                </div>
+            </div>
+            <button class="db-clear-btn" onclick="clearAllAudio()">
+                <span class="material-symbols-rounded">delete_forever</span>
+                Барлығын жою
+            </button>
+        </div>
+        <div id="dbContent" class="db-content">
+            
+        </div>
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
