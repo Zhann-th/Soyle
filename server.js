@@ -1,9 +1,7 @@
 var http = require('http')
 let fs   = require('fs');
 const path = require('path')
-
 const PORT = 8181
-
 let mime = {
     '.html': 'text/html',
     '.css':  'text/css',
@@ -11,12 +9,10 @@ let mime = {
     '.json': 'application/json',
     '.ico':  'image/x-icon',
 };
-
 const server = http.createServer((req, res) => {
     let filePath = path.join(__dirname, req.url === '/' ? 'index.html' : req.url);
     const ext  = path.extname(filePath);
     const type = mime[ext] || 'text/plain'
-
     fs.readFile(filePath, (err, data) => {
         if (err) {
             res.writeHead(404);
@@ -26,8 +22,7 @@ const server = http.createServer((req, res) => {
         res.end(data);
     });
 })
-
 server.listen(PORT, () => {
     console.log(`\n✅ QazAI сервері іске қосылды!`);
-    console.log(`\n🌐 Браузерде ашыңыз: http://localhost:${PORT}\n`);
+    console.log(`\n🌐 Браузерде ашыңыз: http:
 });
